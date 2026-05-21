@@ -5,7 +5,7 @@
 // ─── URL do seu backend no Vercel ─────────────────────────────────────────
 // Após fazer o deploy, substitua pela URL real do Vercel, ex:
 // "https://autobot-backend.vercel.app/api/chat"
-const BACKEND_URL = "https://SEU-PROJETO.vercel.app/api/chat";
+const BACKEND_URL = "chatbot-back-bice.vercel.app";
 
 // ─── Histórico da conversa (mantém contexto) ──────────────────────────────
 const conversationHistory = [];
