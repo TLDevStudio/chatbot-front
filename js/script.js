@@ -1,21 +1,11 @@
-/* ============================================
-   AutoBot IA – Starter | script.js
-   ============================================ */
-
-// ─── URL do seu backend no Vercel ─────────────────────────────────────────
-// Após fazer o deploy, substitua pela URL real do Vercel, ex:
-// "https://autobot-backend.vercel.app/api/chat"
 const BACKEND_URL = "https://chatbot-back-bice.vercel.app/api/chat";
 
-// ─── Histórico da conversa (mantém contexto) ──────────────────────────────
 const conversationHistory = [];
 
-// ─── Elementos do DOM ─────────────────────────────────────────────────────
 const messagesArea = document.getElementById("messagesArea");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 
-// ─── Utilitários ──────────────────────────────────────────────────────────
 function getCurrentTime() {
     return new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
 }
@@ -24,7 +14,6 @@ function scrollToBottom() {
     messagesArea.scrollTop = messagesArea.scrollHeight;
 }
 
-// ─── Renderiza mensagem na tela ───────────────────────────────────────────
 function appendMessage(text, sender = "bot", quickReplies = []) {
     const isBot = sender === "bot";
     const row = document.createElement("div");
@@ -74,7 +63,6 @@ function appendMessage(text, sender = "bot", quickReplies = []) {
     return bubble;
 }
 
-// ─── Indicador "digitando..." ─────────────────────────────────────────────
 function showTyping() {
     const row = document.createElement("div");
     row.className = "msg-row";
@@ -99,7 +87,6 @@ function hideTyping() {
     if (el) el.remove();
 }
 
-// ─── Chama o backend (que chama o Groq) ───────────────────────────────────
 async function callBackend(userMessage) {
     conversationHistory.push({ role: "user", content: userMessage });
 
@@ -120,7 +107,6 @@ async function callBackend(userMessage) {
     return data.reply;
 }
 
-// ─── Fluxo principal de envio ─────────────────────────────────────────────
 async function sendMessage(text) {
     const message = (text || userInput.value).trim();
     if (!message) return;
@@ -155,7 +141,6 @@ async function sendMessage(text) {
     }
 }
 
-// ─── Event listeners ──────────────────────────────────────────────────────
 sendBtn.addEventListener("click", () => sendMessage());
 
 userInput.addEventListener("keydown", (e) => {
@@ -165,7 +150,6 @@ userInput.addEventListener("keydown", (e) => {
     }
 });
 
-// ─── Mensagem de boas-vindas ──────────────────────────────────────────────
 function initChat() {
     setTimeout(() => {
         appendMessage(

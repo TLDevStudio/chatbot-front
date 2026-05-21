@@ -1,8 +1,3 @@
-/* ============================================
-   AutoBot IA – Starter | style.css
-   ============================================ */
-
-/* Reset e base */
 *,
 *::before,
 *::after {
@@ -11,7 +6,6 @@
     padding: 0;
 }
 
-/* Variáveis de design */
 :root {
     --brand: #0f62fe;
     --brand-dark: #0043c1;
@@ -31,7 +25,6 @@
     --font-display: 'Sora', sans-serif;
 }
 
-/* Body e layout geral */
 body {
     font-family: var(--font-main);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #0f62fe 100%);
@@ -42,15 +35,11 @@ body {
     padding: 16px;
 }
 
-/* Wrapper da página */
 .page-wrapper {
     width: 100%;
     max-width: 480px;
 }
 
-/* ============================================
-   Cabeçalho da marca
-   ============================================ */
 .brand-header {
     text-align: center;
     margin-bottom: 20px;
@@ -95,9 +84,6 @@ body {
     margin-top: 2px;
 }
 
-/* ============================================
-   Card do chat
-   ============================================ */
 .chat-card {
     background: var(--surface);
     border-radius: 24px;
@@ -108,9 +94,6 @@ body {
     height: 580px;
 }
 
-/* ============================================
-   Header do chat
-   ============================================ */
 .chat-header {
     background: linear-gradient(135deg, #0f62fe, #0043c1);
     padding: 18px 20px;
@@ -193,9 +176,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* ============================================
-   Área de mensagens
-   ============================================ */
 .messages-area {
     flex: 1;
     overflow-y: auto;
@@ -220,9 +200,6 @@ body {
     border-radius: 4px;
 }
 
-/* ============================================
-   Linhas de mensagem (row)
-   ============================================ */
 .msg-row {
     display: flex;
     align-items: flex-end;
@@ -246,7 +223,6 @@ body {
     }
 }
 
-/* Avatar da mensagem */
 .msg-avatar {
     width: 28px;
     height: 28px;
@@ -269,7 +245,6 @@ body {
     color: #0f62fe;
 }
 
-/* Wrapper do balão + horário */
 .bubble-wrap {
     display: flex;
     flex-direction: column;
@@ -279,7 +254,6 @@ body {
     align-items: flex-end;
 }
 
-/* Balão de mensagem */
 .bubble {
     max-width: 78%;
     padding: 11px 14px;
@@ -301,7 +275,6 @@ body {
     border-bottom-right-radius: 5px;
 }
 
-/* Horário */
 .bubble-time {
     font-size: 10px;
     color: var(--text3);
@@ -313,9 +286,6 @@ body {
     text-align: right;
 }
 
-/* ============================================
-   Respostas rápidas (quick replies)
-   ============================================ */
 .quick-replies {
     display: flex;
     flex-wrap: wrap;
@@ -350,9 +320,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* ============================================
-   Indicador "digitando..."
-   ============================================ */
 .typing-bubble {
     background: var(--surface);
     padding: 13px 16px;
@@ -394,9 +361,6 @@ body {
     }
 }
 
-/* ============================================
-   Formulário de captura de lead
-   ============================================ */
 .lead-form {
     background: var(--surface);
     border-radius: 16px;
@@ -456,9 +420,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* ============================================
-   Área de input de texto
-   ============================================ */
 .input-area {
     padding: 14px 16px;
     background: var(--surface);
@@ -519,9 +480,6 @@ body {
     fill: white;
 }
 
-/* ============================================
-   Rodapé
-   ============================================ */
 .footer-note {
     text-align: center;
     margin-top: 14px;
@@ -539,9 +497,6 @@ body {
     fill: rgba(255, 255, 255, 0.6);
 }
 
-/* ============================================
-   Responsividade – Mobile
-   ============================================ */
 @media (max-width: 480px) {
 
     html,
@@ -636,8 +591,6 @@ body {
     }
 }
 
-/* Corrige vazamento lateral no mobile */
-
 html,
 body {
     overflow-x: hidden;
@@ -653,14 +606,12 @@ body {
     width: 100%;
 }
 
-/* Mensagens nunca ultrapassam */
 .bubble {
     max-width: calc(100vw - 110px);
     word-break: break-word;
     overflow-wrap: break-word;
 }
 
-/* Corrige respostas rápidas */
 .quick-replies {
     display: flex;
     flex-wrap: wrap;
@@ -675,7 +626,6 @@ body {
     word-break: break-word;
 }
 
-/* Impede qualquer elemento de empurrar a tela */
 .chat-card * {
     min-width: 0;
 }
