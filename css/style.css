@@ -320,8 +320,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
-    margin-top: 4px;
-    padding: 0 4px;
+    margin-top: 6px;
+    width: 100%;
 }
 
 .quick-btn {
@@ -329,13 +329,19 @@ body {
     color: var(--brand);
     border: 1px solid rgba(15, 98, 254, 0.2);
     border-radius: 20px;
-    padding: 6px 14px;
+    padding: 7px 12px;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     font-family: var(--font-main);
     transition: all 0.18s;
-    white-space: nowrap;
+
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
+    flex-shrink: 1;
 }
 
 .quick-btn:hover {
@@ -628,4 +634,48 @@ body {
     .footer-note {
         display: none;
     }
+}
+
+/* Corrige vazamento lateral no mobile */
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.page-wrapper,
+.chat-card,
+.messages-area,
+.msg-row,
+.bubble-wrap {
+    min-width: 0;
+    width: 100%;
+}
+
+/* Mensagens nunca ultrapassam */
+.bubble {
+    max-width: calc(100vw - 110px);
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Corrige respostas rápidas */
+.quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.quick-btn {
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* Impede qualquer elemento de empurrar a tela */
+.chat-card * {
+    min-width: 0;
 }
