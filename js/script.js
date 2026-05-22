@@ -6,10 +6,6 @@ const messagesArea = document.getElementById("messagesArea");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 
-// ============================================================
-// CONFIGURAÇÃO DOS PLANOS — troque os "image" pelo caminho
-// real das suas imagens no repositório, ex: "img/landing.png"
-// ============================================================
 const PLANS = [
     {
         id: "landing",
@@ -18,7 +14,7 @@ const PLANS = [
         price: "R$ 499,00",
         description: "Página única de alta conversão com design profissional, formulário de leads e integração com WhatsApp.",
         features: ["Design responsivo", "Botão WhatsApp", "Formulário de leads", "SEO básico"],
-        image: "img/landing.png",   // ← troque pelo caminho da sua imagem
+        image: "img/landing.png",
         color: "#0f62fe"
     },
     {
@@ -28,7 +24,7 @@ const PLANS = [
         price: "R$ 999,00",
         description: "Site multi-páginas com blog, painel de edição simples e animações premium.",
         features: ["Multi-páginas", "Blog / Notícias", "Painel de edição", "Google Analytics", "Animações premium"],
-        image: "img/site.png",      // ← troque pelo caminho da sua imagem
+        image: "img/site.png",
         color: "#7c3aed"
     },
     {
@@ -38,7 +34,7 @@ const PLANS = [
         price: "R$ 1.999,00",
         description: "Loja online com carrinho, checkout (Pix, cartão, boleto) e gestão de estoque.",
         features: ["Catálogo de produtos", "Pix / Cartão / Boleto", "Gestão de estoque", "Cupons desconto", "App mobile"],
-        image: "img/ecommerce.png", // ← troque pelo caminho da sua imagem
+        image: "img/ecommerce.png",
         color: "#059669"
     },
     {
@@ -48,7 +44,7 @@ const PLANS = [
         price: "A partir de R$ 999,00",
         description: "Site completo com chatbot de IA para atender, capturar leads e fechar vendas 24/7.",
         features: ["Chatbot com IA", "Atendimento 24/7", "Captura de leads", "Integração CRM", "Automação WhatsApp"],
-        image: "img/ia.png",        // ← troque pelo caminho da sua imagem
+        image: "img/ia.png",
         color: "#ea580c"
     },
     {
@@ -58,14 +54,12 @@ const PLANS = [
         price: "R$ 1.499,00",
         description: "Sistema para gerenciar ordens de serviço, clientes e status de atendimento.",
         features: ["Cadastro de Clientes", "Controle de OS", "Status de Atendimento", "Gestão Operacional", "Sistema Responsivo"],
-        image: "img/sistema.png",   // ← troque pelo caminho da sua imagem
+        image: "img/sistema.png",
         color: "#0891b2"
     }
 ];
 
 const WHATSAPP_NUMBER = "5521975930204";
-
-// ============================================================
 
 function getCurrentTime() {
     return new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
@@ -126,9 +120,6 @@ function appendMessage(text, sender = "bot", quickReplies = []) {
     return bubble;
 }
 
-// ============================================================
-// CARROSSEL DE PLANOS
-// ============================================================
 function showPlansCarousel() {
     const row = document.createElement("div");
     row.className = "msg-row";
@@ -142,13 +133,11 @@ function showPlansCarousel() {
     bubbleWrap.style.maxWidth = "100%";
     bubbleWrap.style.width = "100%";
 
-    // Label acima do carrossel
     const label = document.createElement("div");
     label.className = "bubble bot";
     label.textContent = "Aqui estão nossos planos! 🚀 Deslize para ver todos:";
     label.style.marginBottom = "10px";
 
-    // Wrapper com scroll horizontal
     const carousel = document.createElement("div");
     carousel.className = "plans-carousel";
 
@@ -194,7 +183,6 @@ function showPlansCarousel() {
     scrollToBottom();
 }
 
-// ============================================================
 
 function showTyping() {
     const row = document.createElement("div");
@@ -255,7 +243,6 @@ async function sendMessage(text) {
         const reply = await callBackend(message);
         hideTyping();
 
-        // ← Detecta o comando especial e exibe o carrossel
         if (reply.trim() === "SHOW_PLANS") {
             showPlansCarousel();
         } else {
