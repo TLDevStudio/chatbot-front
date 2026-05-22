@@ -506,11 +506,16 @@ body {
         overflow: hidden;
     }
 
+    html {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #0f62fe 100%);
+    }
+
     body {
         padding: 0;
         margin: 0;
         align-items: stretch;
         justify-content: flex-start;
+        background: #ffffff;
     }
 
     .page-wrapper {
