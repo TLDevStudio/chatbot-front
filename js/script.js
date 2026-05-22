@@ -22,7 +22,11 @@ const db = getFirestore(app);
 const BACKEND_URL = "https://chatbot-back-bice.vercel.app/api/chat";
 
 const conversationHistory = [];
-const CHAT_ID = "chat-global";
+const CHAT_ID =
+    localStorage.getItem("chat_id") ||
+    crypto.randomUUID();
+
+localStorage.setItem("chat_id", CHAT_ID);
 
 const messagesArea = document.getElementById("messagesArea");
 const userInput = document.getElementById("userInput");
