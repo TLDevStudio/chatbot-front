@@ -293,7 +293,7 @@ userInput.addEventListener("keydown", (e) => {
 function initChat() {
     setTimeout(() => {
         appendMessage(
-            "Olá! 👋 Sou o Assistente Virtual da TL Dev Studios. Como posso te ajudar hoje?",
+            "Olá! 👋 Sou o Assistente Virtual da TL Dev Studio. Como posso te ajudar hoje?",
             "bot",
             ["💬 Falar com suporte", "📦 Ver planos", "❓ Tirar dúvidas"]
         );
