@@ -21,7 +21,7 @@ function appendMessage(text, sender = "bot", quickReplies = []) {
 
     const avatarEl = document.createElement("div");
     avatarEl.className = `msg-avatar ${isBot ? "bot" : "user-av"}`;
-    avatarEl.textContent = isBot ? "IA" : "EU";
+    avatarEl.innerHTML = isBot ? `<span style="font-family:'Sora',sans-serif;font-weight:600;font-size:11px;letter-spacing:-0.5px;">TL<span style="color:#4f8ef7;">.</span></span>` : "EU";
 
     const bubbleWrap = document.createElement("div");
     bubbleWrap.className = "bubble-wrap";
@@ -70,7 +70,7 @@ function showTyping() {
 
     const avatarEl = document.createElement("div");
     avatarEl.className = "msg-avatar bot";
-    avatarEl.textContent = "IA";
+    avatarEl.innerHTML = `<span style="font-family:'Sora',sans-serif;font-weight:600;font-size:11px;letter-spacing:-0.5px;">TL<span style="color:#4f8ef7;">.</span></span>`;
 
     const typing = document.createElement("div");
     typing.className = "typing-bubble";
