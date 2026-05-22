@@ -138,6 +138,21 @@ function showPlansCarousel() {
     label.textContent = "Aqui estão nossos planos! 🚀 Deslize para ver todos:";
     label.style.marginBottom = "10px";
 
+    // WRAPPER
+    const carouselWrapper = document.createElement("div");
+    carouselWrapper.className = "plans-carousel-wrapper";
+
+    // BOTÃO ESQUERDA
+    const leftBtn = document.createElement("button");
+    leftBtn.className = "carousel-nav left";
+    leftBtn.innerHTML = "‹";
+
+    // BOTÃO DIREITA
+    const rightBtn = document.createElement("button");
+    rightBtn.className = "carousel-nav right";
+    rightBtn.innerHTML = "›";
+
+    // CARROSSEL
     const carousel = document.createElement("div");
     carousel.className = "plans-carousel";
 
@@ -151,16 +166,21 @@ function showPlansCarousel() {
                 <img src="${plan.image}" alt="${plan.name}" onerror="this.parentElement.style.background='${plan.color}20'; this.style.display='none'"/>
                 <div class="plan-card-badge" style="background:${plan.color}">${plan.price}</div>
             </div>
+
             <div class="plan-card-body">
                 <div class="plan-card-name">${plan.name}</div>
                 <div class="plan-card-sub">${plan.subtitle}</div>
                 <div class="plan-card-desc">${plan.description}</div>
+
                 <ul class="plan-card-features">
                     ${plan.features.map(f => `<li>✓ ${f}</li>`).join("")}
                 </ul>
-                <a class="plan-card-btn" style="background:${plan.color}" 
+
+                <a class="plan-card-btn"
+                   style="background:${plan.color}"
                    href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Olá! Tenho interesse no plano ${plan.name} (${plan.price}). Pode me dar mais informações?`)}"
-                   target="_blank" rel="noopener">
+                   target="_blank"
+                   rel="noopener">
                    Quero esse plano →
                 </a>
             </div>
@@ -169,17 +189,71 @@ function showPlansCarousel() {
         carousel.appendChild(card);
     });
 
+    // SCROLL PELOS BOTÕES
+    leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({
+            left: -320,
+            behavior: "smooth"
+        });
+    });
+
+    rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({
+            left: 320,
+            behavior: "smooth"
+        });
+    });
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener("mousedown", (e) => {
+        isDown = true;
+        carousel.classList.add("dragging");
+
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+        isDown = false;
+        carousel.classList.remove("dragging");
+    });
+
+    carousel.addEventListener("mouseup", () => {
+        isDown = false;
+        carousel.classList.remove("dragging");
+    });
+
+    carousel.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+
+        e.preventDefault();
+
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 1.2;
+
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    carouselWrapper.appendChild(leftBtn);
+    carouselWrapper.appendChild(carousel);
+    carouselWrapper.appendChild(rightBtn);
+
     const timeEl = document.createElement("div");
     timeEl.className = "bubble-time";
     timeEl.textContent = getCurrentTime();
 
     bubbleWrap.appendChild(label);
-    bubbleWrap.appendChild(carousel);
+    bubbleWrap.appendChild(carouselWrapper);
     bubbleWrap.appendChild(timeEl);
 
     row.appendChild(avatarEl);
     row.appendChild(bubbleWrap);
+
     messagesArea.appendChild(row);
+
     scrollToBottom();
 }
 
