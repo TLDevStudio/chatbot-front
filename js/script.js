@@ -1,6 +1,28 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAjLXqBV2uRqRNj_b_Afj8LB6ofUvmh9hg",
+    authDomain: "chatbot-6e89a.firebaseapp.com",
+    projectId: "chatbot-6e89a",
+    storageBucket: "chatbot-6e89a.firebasestorage.app",
+    messagingSenderId: "352570271409",
+    appId: "1:352570271409:web:542f7b6ad9607d3508a490"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const BACKEND_URL = "https://chatbot-back-bice.vercel.app/api/chat";
 
 const conversationHistory = [];
+const CHAT_ID = "chat-global";
 
 const messagesArea = document.getElementById("messagesArea");
 const userInput = document.getElementById("userInput");
@@ -67,6 +89,45 @@ function getCurrentTime() {
 
 function scrollToBottom() {
     messagesArea.scrollTop = messagesArea.scrollHeight;
+}
+
+async function saveMessages() {
+    try {
+        await setDoc(doc(db, "chats", CHAT_ID), {
+            messages: conversationHistory
+        });
+    } catch (error) {
+        console.error("Erro ao salvar mensagens:", error);
+    }
+}
+
+async function loadMessages() {
+    try {
+        const docRef = doc(db, "chats", CHAT_ID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+
+            if (data.messages && Array.isArray(data.messages)) {
+
+                conversationHistory.push(...data.messages);
+
+                data.messages.forEach(msg => {
+                    appendMessage(
+                        msg.content,
+                        msg.role === "assistant" ? "bot" : "user"
+                    );
+                });
+            }
+        } else {
+            initChat();
+        }
+
+    } catch (error) {
+        console.error("Erro ao carregar mensagens:", error);
+        initChat();
+    }
 }
 
 function appendMessage(text, sender = "bot", quickReplies = []) {
@@ -189,7 +250,6 @@ function showPlansCarousel() {
         carousel.appendChild(card);
     });
 
-    // SCROLL PELOS BOTÕES
     leftBtn.addEventListener("click", () => {
         carousel.scrollBy({
             left: -320,
@@ -284,6 +344,7 @@ function hideTyping() {
 
 async function callBackend(userMessage) {
     conversationHistory.push({ role: "user", content: userMessage });
+    await saveMessages();
 
     const response = await fetch(BACKEND_URL, {
         method: "POST",
@@ -298,6 +359,7 @@ async function callBackend(userMessage) {
 
     const data = await response.json();
     conversationHistory.push({ role: "assistant", content: data.reply });
+    await saveMessages();
 
     return data.reply;
 }
@@ -361,4 +423,4 @@ function initChat() {
     }, 600);
 }
 
-initChat();
+loadMessages();
