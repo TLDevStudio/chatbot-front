@@ -118,6 +118,12 @@ async function loadMessages() {
                 conversationHistory.push(...data.messages);
 
                 data.messages.forEach(msg => {
+
+                    if (msg.content === "SHOW_PLANS") {
+                        showPlansCarousel();
+                        return;
+                    }
+
                     appendMessage(
                         msg.content,
                         msg.role === "assistant" ? "bot" : "user"
@@ -418,13 +424,21 @@ userInput.addEventListener("keydown", (e) => {
 });
 
 function initChat() {
-    setTimeout(() => {
-        appendMessage(
-            "Olá! 👋 Sou o Assistente Virtual da TL Dev Studio. Como posso te ajudar hoje?",
-            "bot",
-            ["💬 Falar com suporte", "📦 Ver planos", "❓ Tirar dúvidas"]
-        );
-    }, 600);
+    const welcome =
+        "Olá! 👋 Sou o Assistente Virtual da TL Dev Studio. Como posso te ajudar hoje?";
+
+    appendMessage(
+        welcome,
+        "bot",
+        ["💬 Falar com suporte", "📦 Ver planos", "❓ Tirar dúvidas"]
+    );
+
+    conversationHistory.push({
+        role: "assistant",
+        content: welcome
+    });
+
+    saveMessages();
 }
 
 loadMessages();
