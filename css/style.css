@@ -204,7 +204,8 @@ body {
     display: flex;
     align-items: flex-end;
     gap: 8px;
-    animation: fadeUp 0.3s ease;
+    animation: fadeUp 0.28s cubic-bezier(.22, .61, .36, 1);
+    will-change: transform, opacity;
 }
 
 .msg-row.user {
@@ -214,12 +215,14 @@ body {
 @keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(14px) scale(0.98);
+        filter: blur(2px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
@@ -297,14 +300,19 @@ body {
 .quick-btn {
     background: var(--brand-light);
     color: var(--brand);
-    border: 1px solid rgba(15, 98, 254, 0.2);
+    border: 1px solid rgba(15, 98, 254, 0.18);
     border-radius: 20px;
     padding: 7px 12px;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     font-family: var(--font-main);
-    transition: all 0.18s;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
 
     max-width: 100%;
     white-space: normal;
@@ -312,12 +320,19 @@ body {
     overflow-wrap: break-word;
 
     flex-shrink: 1;
+
+    backdrop-filter: blur(8px);
 }
 
 .quick-btn:hover {
     background: var(--brand);
     color: white;
-    transform: translateY(-1px);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(15, 98, 254, 0.20),
+        0 2px 6px rgba(15, 98, 254, 0.12);
 }
 
 .typing-bubble {
@@ -440,12 +455,23 @@ body {
     color: var(--text1);
     background: var(--surface2);
     outline: none;
-    transition: border-color 0.15s, background 0.15s;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
 }
 
 #userInput:focus {
     border-color: var(--brand);
     background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(15, 98, 254, 0.12),
+        0 4px 12px rgba(15, 98, 254, 0.08);
+
+    transform: translateY(-1px);
 }
 
 #userInput::placeholder {
@@ -463,11 +489,19 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: transform 0.15s, opacity 0.15s;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease;
 }
 
 #sendBtn:hover {
-    transform: scale(1.06);
+    transform: translateY(-2px) scale(1.05);
+
+    box-shadow:
+        0 10px 24px rgba(15, 98, 254, 0.28),
+        0 4px 10px rgba(15, 98, 254, 0.16);
 }
 
 #sendBtn:active {
@@ -676,13 +710,30 @@ body {
     max-width: 220px;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 2px 10px rgba(0, 0, 0, 0.04);
+
     overflow: hidden;
     scroll-snap-align: start;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.07);
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.12),
+        0 6px 18px rgba(15, 98, 254, 0.10);
 }
 
 .plan-card-img {
@@ -818,7 +869,11 @@ body {
 }
 
 .carousel-nav:hover {
-    transform: translateY(-50%) scale(1.08);
+    transform: translateY(-50%) scale(1.10);
+
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.16),
+        0 4px 12px rgba(15, 98, 254, 0.10);
 }
 
 .carousel-nav.left {
